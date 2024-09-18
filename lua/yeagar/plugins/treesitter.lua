@@ -5,8 +5,7 @@ if not present then
 end
 
 local options = {
-	ensure_installed = { "javascript", "typescript", "lua", "html", "css", "python" },
-
+	auto_install = true,
 	highlight = {
 		enable = true,
 		use_languagetree = true,

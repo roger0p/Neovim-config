@@ -1,17 +1,10 @@
--- require('lualine').setup {
---   options = {
---     icons_enabled = true,
---     theme = 'auto',
---   },
---   sections = {
---     lualine_a = {
---       {
---         'filename',
---         path = 1,
---       }
---     }
---   }
--- }
+local present, lualine = pcall(require, "lualine")
+
+if not present then
+	return
+end
+vim.opt.laststatus = 3
+
 local colors = {
 	bg = "#232232",
 	fg = "#cdd6f4",
@@ -46,8 +39,40 @@ local bubbles_theme = {
 		c = { fg = colors.black, bg = colors.black },
 	},
 }
+local function setup_macro_refresh(lualine)
+	vim.api.nvim_create_autocmd("RecordingEnter", {
+		callback = function()
+			lualine.refresh({
+				place = { "statusline" },
+			})
+		end,
+	})
+	vim.api.nvim_create_autocmd("RecordingLeave", {
+		callback = function()
+			local timer = vim.loop.new_timer()
+			timer:start(
+				50,
+				0,
+				vim.schedule_wrap(function()
+					lualine.refresh({
+						place = { "statusline" },
+					})
+				end)
+			)
+		end,
+	})
+end
 
-require("lualine").setup({
+local function macro_recording_status()
+	local function current_status()
+		local register = vim.fn.reg_recording()
+		return register == "" and "" or "RECORDING @" .. register
+	end
+	return { "macro-recording", fmt = current_status }
+end
+setup_macro_refresh(lualine)
+
+lualine.setup({
 	options = {
 		theme = "auto",
 		component_separators = " ",
@@ -58,11 +83,11 @@ require("lualine").setup({
 			{ "mode", separator = { left = "", right = "" } },
 		},
 		lualine_b = { "filename" },
-		lualine_c = { "branch", "diff" },
+		lualine_c = { macro_recording_status() },
 		lualine_x = { "filetype" },
-		lualine_y = { "progress" },
+		lualine_y = { "diff" },
 		lualine_z = {
-			{ "location", separator = { right = "" }, left_padding = 2 },
+			{ "branch", separator = { right = "" }, left_padding = 2 },
 		},
 	},
 	inactive_sections = {
