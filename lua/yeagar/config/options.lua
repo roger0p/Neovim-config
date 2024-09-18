@@ -4,18 +4,11 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 20
 vim.opt.wrap = false
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
 vim.opt.background = "dark"
 vim.opt.numberwidth = 1
-vim.opt.list = true
--- vim.opt.listchars:append("eol:↲")
--- vim.opt.listchars:append("eol:<")
--- vim.opt.listchars:append("nbsp:%")
--- vim.opt.listchars:append("trail:-")
--- vim.opt.listchars:append("tab:...")
--- vim.opt.listchars:append("tab:<->")
--- vim.opt.listchars:append("extends:>,precedes:<")
+-- vim.opt.list = true
 vim.opt.fillchars = { eob = " " }
 
 vim.opt.number = true
@@ -50,6 +43,7 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 vim.o.timeoutlen = 400
-vim.opt.shortmess = "I"
+vim.opt.shortmess:append("sI")
+vim.opt.termguicolors = true

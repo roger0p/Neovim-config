@@ -67,10 +67,23 @@ lspconfig.bashls.setup({})
 -- ---
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local lspkind = require("lspkind")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
+	window = {
+		completion = cmp.config.window.bordered({
+			border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
+			scrollbar = false,
+			winhighlight = "Normal:Normal,FloatBorder:CmpWinBorder,CursorLine:PmenuSel,Search:None",
+		}),
+		documentation = cmp.config.window.bordered({
+			border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
+			scrollbar = false,
+			winhighlight = "Normal:Normal,FloatBorder:CmpWinBorder,CursorLine:PmenuSel,Search:None",
+		}),
+	},
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
@@ -104,11 +117,23 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 	}),
+	formatting = {
+		expandable_indicator = false,
+		fields = { "abbr", "kind", "menu" },
+		format = lspkind.cmp_format({
+			mode = "symbol", -- show only symbol annotations
+			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+			before = function(_, vim_item)
+				return vim_item
+			end,
+		}),
+	},
 })
 
-----------------
---- Formatter--
-----------------
+-------------------
+---- Formatter ----
+-------------------
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },

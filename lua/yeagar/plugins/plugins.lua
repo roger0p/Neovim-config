@@ -15,6 +15,14 @@ return {
 	-- 		require("yeagar.plugins.trouble")
 	-- 	end,
 	-- },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			require("ibl").setup()
+		end,
+	},
 	{ "mbbill/undotree" },
 	{
 		"ThePrimeagen/harpoon",
@@ -22,9 +30,18 @@ return {
 			require("harpoon").setup()
 		end,
 	},
-	-- { "tpope/vim-fugitive" },
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
 		build = ":TSUpdate",
 		config = function()
 			require("yeagar.plugins.treesitter")
@@ -32,26 +49,48 @@ return {
 	},
 	---LSP--
 	{
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/nvim-cmp",
-		"saadparwaiz1/cmp_luasnip",
-		"L3MON4D3/LuaSnip",
-	},
-	{
-		"stevearc/conform.nvim",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
 		config = function()
 			require("yeagar.plugins.lsp")
 		end,
 	},
+	----Completion----
 	{
-		"nvimdev/lspsaga.nvim",
-		config = function()
-			require("lspsaga").setup({})
-		end,
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
+			"onsails/lspkind.nvim",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = {
+					"saadparwaiz1/cmp_luasnip",
+					"rafamadriz/friendly-snippets",
+				},
+				version = "2.*",
+				build = "make install_jsregexp",
+			},
+			{
+				"nvimdev/lspsaga.nvim",
+				config = function()
+					require("lspsaga").setup({})
+				end,
+			},
+		},
 	},
+	----Formatter----
+	{
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+	},
+	----UI----
 	{
 		"norcalli/nvim-colorizer.lua",
 		config = function()
@@ -65,12 +104,9 @@ return {
 		"kylechui/nvim-surround",
 		event = "VeryLazy",
 		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
+			require("nvim-surround").setup()
 		end,
 	},
-	{ "dstein64/vim-startuptime", event = "VeryLazy" },
 	{
 		"smoka7/hop.nvim",
 		event = "VeryLazy",
@@ -80,6 +116,8 @@ return {
 	},
 	{
 		"akinsho/bufferline.nvim",
+		event = { "BufReadPost", "BufNewFile" },
+		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("yeagar.plugins.bufferline")
@@ -87,7 +125,7 @@ return {
 	},
 	{
 		"windwp/nvim-autopairs",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		opts = {
 			fast_wrap = {},
 			disable_filetype = { "TelescopePrompt", "vim" },
@@ -118,45 +156,27 @@ return {
 			},
 		},
 	},
-
-	-- 	branch = "v3.x",
-	-- 	config = function()
-	-- 		require("yeagar.plugins.neotree")
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-	-- 	},
-	-- },
-	-- {
-	-- 	"s1n7ax/nvim-window-picker",
-	-- 	version = "2.*",
-	-- 	config = function()
-	-- 		require("window-picker").setup({
-	-- 			filter_rules = {
-	-- 				include_current_win = false,
-	-- 				autoselect_one = true,
-	-- 				-- filter using buffer options
-	-- 				bo = {
-	-- 					-- if the file type is one of following, the window will be ignored
-	-- 					filetype = { "neo-tree", "neo-tree-popup", "notify" },
-	-- 					-- if the buffer type is one of following, the window will be ignored
-	-- 					buftype = { "terminal", "quickfix" },
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-	-- {
-	-- 	"goolord/alpha-nvim",
-	-- 	-- dependencies = { 'echasnovski/mini.icons' },
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	-- 	config = function()
-	-- 		require("yeagar.plugins.alpha")
-	-- 	end,
-	-- },
+	{
+		"folke/zen-mode.nvim",
+		cmd = "ZenMode",
+		opts = {
+			window = { backdrop = 0.7 },
+			plugins = {
+				gitsigns = true,
+				tmux = true,
+				kitty = { enabled = false, font = "+2" },
+			},
+		},
+		keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
+	},
+	{
+		"goolord/alpha-nvim",
+		-- dependencies = { 'echasnovski/mini.icons' },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("yeagar.plugins.alpha")
+		end,
+	},
 	-- lua with lazy.nvim
 	{
 		"max397574/better-escape.nvim",
@@ -166,7 +186,11 @@ return {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		init = function()
+			vim.opt.laststatus = 0
+		end,
 		config = function()
 			require("yeagar.plugins.lualine")
 		end,
@@ -180,8 +204,8 @@ return {
 		end,
 	},
 	-- { "rose-pine/neovim", name = "rose-pine" },
+	-- { "Everblush/nvim", name = "everblush" },
 	-- { "catppuccin/nvim", name = "catppuccin" },
 	-- { "rebelot/kanagawa.nvim" },
-	-- { "Everblush/nvim", name = "everblush" },
 	-- { "tiagovla/tokyodark.nvim" },
 }
