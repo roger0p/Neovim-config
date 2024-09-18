@@ -99,7 +99,6 @@ return {
 	},
 	{ "nvim-tree/nvim-web-devicons" },
 	{ "christoomey/vim-tmux-navigator", event = "VeryLazy" },
-	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{
 		"kylechui/nvim-surround",
 		event = "VeryLazy",
