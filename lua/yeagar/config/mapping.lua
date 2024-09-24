@@ -5,6 +5,8 @@ local map = vim.keymap.set
 -- map("i", "jk", "<Esc>")
 map("n", "<M-Up>", "<CMD>m -2<CR>")
 map("n", "<M-Down>", "<CMD>m +1<CR>")
+map("n", "<M-k>", "<CMD>m -2<CR>")
+map("n", "<M-j>", "<CMD>m +1<CR>")
 
 map("n", "J", "mzJ`z")
 map("n", "<C-a>", "0ggvG$")

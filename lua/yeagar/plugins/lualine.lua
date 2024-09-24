@@ -3,7 +3,6 @@ local present, lualine = pcall(require, "lualine")
 if not present then
 	return
 end
-vim.opt.laststatus = 3
 
 local colors = {
 	bg = "#232232",
@@ -80,14 +79,18 @@ lualine.setup({
 	},
 	sections = {
 		lualine_a = {
-			{ "mode", separator = { left = "", right = "" } },
+			{ "mode", separator = { left = "", right = "" }, right_padding = 2 },
+			macro_recording_status(),
 		},
-		lualine_b = { "filename" },
-		lualine_c = { macro_recording_status() },
+		lualine_b = {
+			"branch",
+			"diff",
+		},
+		lualine_c = { "filename" },
 		lualine_x = { "filetype" },
-		lualine_y = { "diff" },
+		lualine_y = { "diagnostics", "progress" },
 		lualine_z = {
-			{ "branch", separator = { right = "" }, left_padding = 2 },
+			{ "location", separator = { right = "", left = "" }, left_padding = 2 },
 		},
 	},
 	inactive_sections = {

@@ -80,7 +80,14 @@ return {
 			{
 				"nvimdev/lspsaga.nvim",
 				config = function()
-					require("lspsaga").setup({})
+					require("lspsaga").setup({
+						lightbulb = {
+							enable = false,
+						},
+						symbol_in_winbar = {
+							enable = true,
+						},
+					})
 				end,
 			},
 		},
@@ -195,16 +202,17 @@ return {
 		end,
 	},
 	--Colorschemes--`
-	{ "sainnhe/gruvbox-material" },
+	-- { "sainnhe/gruvbox-material" },
+	-- { "ellisonleao/gruvbox.nvim" },
+	-- { "rose-pine/neovim", name = "rose-pine" },
+	-- { "Everblush/nvim", name = "everblush" },
 	{
-		"ellisonleao/gruvbox.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		config = function()
 			require("yeagar.config.colors")
 		end,
 	},
-	-- { "rose-pine/neovim", name = "rose-pine" },
-	-- { "Everblush/nvim", name = "everblush" },
-	-- { "catppuccin/nvim", name = "catppuccin" },
 	-- { "rebelot/kanagawa.nvim" },
 	-- { "tiagovla/tokyodark.nvim" },
 }

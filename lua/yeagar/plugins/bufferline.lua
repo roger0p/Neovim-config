@@ -11,8 +11,8 @@ bufferline.setup({
 		middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
 		buffer_close_icon = "⨉",
 		modified_icon = "",
-		close_icon = "⨉",
-		show_close_icon = false,
+		close_icon = "",
+		show_close_icon = true,
 		left_trunc_marker = "",
 		right_trunc_marker = "",
 		name_formatter = function(buf)
@@ -28,7 +28,8 @@ bufferline.setup({
 		view = "multiwindow",
 		show_buffer_icons = true,
 		show_buffer_close_icons = true,
-		separator_style = { "", "" },
+		color_icons = true, -- whether or not to add the filetype icon highlights
+		separator_style = { "", "" }, --- "slant", "Slope", "thick", "thin", { 'any', 'any' }
 		always_show_bufferline = true,
 		themable = true,
 		offsets = {

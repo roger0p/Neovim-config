@@ -1,3 +1,4 @@
+vim.opt.termguicolors = true
 vim.opt.guicursor = ""
 vim.opt.cursorline = true
 
@@ -7,7 +8,6 @@ vim.opt.wrap = false
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
 vim.opt.background = "dark"
-vim.opt.numberwidth = 1
 -- vim.opt.list = true
 vim.opt.fillchars = { eob = " " }
 
@@ -38,12 +38,9 @@ vim.opt.undofile = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.termguicolors = true
-
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 250
 vim.o.timeoutlen = 400
 vim.opt.shortmess:append("sI")
-vim.opt.termguicolors = true
