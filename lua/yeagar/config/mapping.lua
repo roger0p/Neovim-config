@@ -25,6 +25,13 @@ map("n", "<S-Tab>", ":bprevious<CR>", opts)
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
+----Splits
+map("n", "hs", ":split<CR>")
+map("n", "vs", ":vsplit<CR>")
+----Terminal
+map("n", "<leader>v", ":vs +terminal | startinsert<CR>")
+map("n", "<leader>h", ":split +terminal | startinsert<CR>")
+
 --greatest remap ever
 map("x", "<leader>p", '"_dP')
 
