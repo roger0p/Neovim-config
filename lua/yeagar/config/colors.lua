@@ -90,6 +90,7 @@ require("catppuccin").setup({
 	show_end_of_buffer = false,
 	integration_default = false,
 	integrations = {
+		alpha = true,
 		barbecue = { dim_dirname = true, bold_basename = true, dim_context = false, alt_background = false },
 		cmp = true,
 		gitsigns = true,
