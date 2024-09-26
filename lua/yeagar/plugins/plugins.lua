@@ -63,9 +63,13 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
+		config = function()
+			require("yeagar.plugins.cmp")
+		end,
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			{
@@ -77,20 +81,17 @@ return {
 				version = "2.*",
 				build = "make install_jsregexp",
 			},
-			{
-				"nvimdev/lspsaga.nvim",
-				config = function()
-					require("lspsaga").setup({
-						lightbulb = {
-							enable = false,
-						},
-						symbol_in_winbar = {
-							enable = true,
-						},
-					})
-				end,
-			},
 		},
+	},
+	{
+		"nvimdev/lspsaga.nvim",
+		config = function()
+			require("lspsaga").setup({
+				lightbulb = {
+					enable = false,
+				},
+			})
+		end,
 	},
 	----Formatter----
 	{

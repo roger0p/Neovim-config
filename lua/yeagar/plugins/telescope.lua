@@ -12,7 +12,6 @@ telescope.setup({
 		sorting_strategy = "ascending",
 		layout_config = {
 			horizontal = {
-				prompt_position = "top",
 				preview_width = 0.55,
 			},
 			width = 0.87,
@@ -28,11 +27,6 @@ telescope.setup({
 				["<Tab>"] = actions.move_selection_next,
 				["<S-Tab>"] = actions.move_selection_previous,
 			},
-		},
-	},
-	pickers = {
-		find_files = {
-			theme = "dropdown",
 		},
 	},
 })
