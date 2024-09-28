@@ -89,6 +89,9 @@ require("catppuccin").setup({
 	transparent_background = true,
 	show_end_of_buffer = false,
 	integration_default = false,
+	styles = {
+		keywords = { "italic" },
+	},
 	integrations = {
 		alpha = true,
 		barbecue = { dim_dirname = true, bold_basename = true, dim_context = false, alt_background = false },

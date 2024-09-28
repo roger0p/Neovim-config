@@ -34,6 +34,7 @@ map("n", "<leader>h", ":split +terminal | startinsert<CR>")
 
 --greatest remap ever
 map("x", "<leader>p", '"_dP')
+map("n", "<leader>sr", ":%s/<C-r><C-w>//g<Left><Left>")
 
 --next greatest remap (only for linux/not wsl)
 map("n", "<leader>y", '"+y')
