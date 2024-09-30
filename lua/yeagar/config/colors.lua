@@ -87,21 +87,20 @@ require("catppuccin").setup({
 		},
 	},
 	transparent_background = true,
-	show_end_of_buffer = false,
+	show_end_of_buffer = true,
 	integration_default = false,
-	styles = {
-		keywords = { "italic" },
-	},
+	custom_highlights = function(colors)
+		return {
+			Keyword = { fg = colors.flamingo },
+			CmpBorder = { fg = colors.yellow },
+		}
+	end,
 	integrations = {
 		alpha = true,
-		barbecue = { dim_dirname = true, bold_basename = true, dim_context = false, alt_background = false },
 		cmp = true,
 		gitsigns = true,
 		hop = true,
-		illuminate = { enabled = true },
 		native_lsp = { enabled = true, inlay_hints = { background = true } },
-		neogit = true,
-		neotree = true,
 		semantic_tokens = true,
 		treesitter = true,
 		treesitter_context = true,

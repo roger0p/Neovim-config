@@ -12,6 +12,10 @@ map("n", "J", "mzJ`z")
 map("n", "<C-a>", "0ggvG$")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
+map({ "n", "v" }, "<C-e>", "$")
+map({ "n", "v" }, "<C-b>", "0")
+map("i", "<C-e>", "<Esc>$i")
+map("i", "<C-b>", "<Esc>")
 map("i", "<C-h>", "<Left>")
 map("i", "<C-j>", "<Down>")
 map("i", "<C-k>", "<Up>")
@@ -34,7 +38,7 @@ map("n", "<leader>h", ":split +terminal | startinsert<CR>")
 
 --greatest remap ever
 map("x", "<leader>p", '"_dP')
-map("n", "<leader>sr", ":%s/<C-r><C-w>//g<Left><Left>")
+map("n", "<leader>sr", ":%s/<C-r><C-w>//gc<left><Left><Left>")
 
 --next greatest remap (only for linux/not wsl)
 map("n", "<leader>y", '"+y')
@@ -56,10 +60,11 @@ end)
 --Hop.nvim
 map("", "gf", vim.cmd.HopChar1)
 map("", "gt", vim.cmd.HopChar1)
---
+
+--NvimTree
+map("n", "<leader>n", ":NvimTreeToggle<CR>", opts)
+
 -- --Harpoon
--- local mark = require("harpoon.mark")
--- local ui = require("harpoon.ui")
 map("n", "<leader>P", function()
 	require("harpoon.ui").toggle_quick_menu()
 end)

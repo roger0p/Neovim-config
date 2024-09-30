@@ -28,14 +28,35 @@ bufferline.setup({
 		view = "multiwindow",
 		show_buffer_icons = true,
 		show_buffer_close_icons = true,
-		color_icons = true, -- whether or not to add the filetype icon highlights
+		color_icons = false, -- whether or not to add the filetype icon highlights
 		separator_style = { "", "" }, --- "slant", "Slope", "thick", "thin", { 'any', 'any' }
-		always_show_bufferline = true,
+		always_show_bufferline = false,
 		themable = true,
 		offsets = {
-			{ filetype = "neo-tree", text = "", padding = 0 },
-			{ filetype = "alpha", text = "", padding = 0 },
-			{ filetype = "Outline", text = "", padding = 0 },
+			{
+				filetype = "alpha",
+				text = "Alpha",
+				highlight = "PanelHeading",
+				padding = 0,
+			},
+			{
+				filetype = "undotree",
+				text = "Undotree",
+				highlight = "PanelHeading",
+				padding = 0,
+			},
+			{
+				filetype = "NvimTree",
+				text = "Explorer",
+				highlight = "PanelHeading",
+				padding = 0,
+			},
+			{
+				filetype = "lazy",
+				text = "Lazy",
+				highlight = "PanelHeading",
+				padding = 1,
+			},
 		},
 
 		custom_filter = function(buf_number)

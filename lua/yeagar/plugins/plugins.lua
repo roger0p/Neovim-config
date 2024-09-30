@@ -31,6 +31,12 @@ return {
 		end,
 	},
 	{
+		"nvim-tree/nvim-tree.lua",
+		config = function()
+			require("yeagar.plugins.nvimtree")
+		end,
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup()
@@ -106,23 +112,24 @@ return {
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons" },
-	{ "christoomey/vim-tmux-navigator", event = "VeryLazy" },
+	{ "christoomey/vim-tmux-navigator", event = "BufEnter" },
 	{
 		"kylechui/nvim-surround",
-		event = "VeryLazy",
+		event = "BufEnter",
 		config = function()
 			require("nvim-surround").setup()
 		end,
 	},
 	{
 		"smoka7/hop.nvim",
-		event = "VeryLazy",
+		event = "BufEnter",
 		opts = {
 			keys = "etovxqpdygfblzhckisuran",
 		},
 	},
 	{
 		"akinsho/bufferline.nvim",
+		after = "catppuccin",
 		event = { "BufReadPost", "BufNewFile" },
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
@@ -147,7 +154,7 @@ return {
 	},
 	{
 		"folke/which-key.nvim",
-		event = "VeryLazy",
+		event = "BufEnter",
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
@@ -193,7 +200,7 @@ return {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		init = function()
 			vim.opt.laststatus = 0
