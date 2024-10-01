@@ -21,4 +21,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup("yeagar.plugins.plugins", {})
+require("lazy").setup("yeagar.config.plugins", {})
