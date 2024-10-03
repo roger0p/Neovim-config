@@ -7,22 +7,21 @@ return {
 			require("yeagar.plugins.telescope")
 		end,
 	},
-	-- {
-	-- 	"folke/trouble.nvim",
-	-- 	opts = {}, -- for default options, refer to the configuration section for custom setup.
-	-- 	cmd = "Trouble",
-	-- 	config = function()
-	-- 		require("yeagar.plugins.trouble")
-	-- 	end,
-	-- },
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {},
+		"shellRaining/hlchunk.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require("ibl").setup()
+			require("yeagar.plugins.indent")
 		end,
 	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("ibl").setup()
+	-- 	end,
+	-- },
 	{ "mbbill/undotree" },
 	{
 		"ThePrimeagen/harpoon",

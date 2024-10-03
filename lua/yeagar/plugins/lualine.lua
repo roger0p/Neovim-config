@@ -38,6 +38,7 @@ local bubbles_theme = {
 		c = { fg = colors.black, bg = colors.black },
 	},
 }
+--- Show when Macro recording ---
 local function setup_macro_refresh(lualine)
 	vim.api.nvim_create_autocmd("RecordingEnter", {
 		callback = function()
@@ -86,11 +87,11 @@ lualine.setup({
 			"branch",
 			"diff",
 		},
-		lualine_c = { "filename" },
+		lualine_c = { "filename", "diagnostics" },
 		lualine_x = { "filetype" },
-		lualine_y = { "diagnostics", "progress" },
+		lualine_y = { "progress" },
 		lualine_z = {
-			{ "location", separator = { right = "", left = "" }, left_padding = 2 },
+			{ "location", color = { gui = "bold" }, separator = { right = "", left = "" }, left_padding = 2 },
 		},
 	},
 	inactive_sections = {
@@ -102,5 +103,5 @@ lualine.setup({
 		lualine_z = {},
 	},
 	tabline = {},
-	extensions = {},
+	extensions = { "quickfix", "nvim-tree" },
 })
