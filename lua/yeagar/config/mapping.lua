@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
 -- map("i", "jk", "<Esc>")
@@ -8,6 +7,7 @@ map("n", "<M-Down>", "<CMD>m +1<CR>")
 map("n", "<M-k>", "<CMD>m -2<CR>")
 map("n", "<M-j>", "<CMD>m +1<CR>")
 
+map("n", ";", ":")
 map("n", "J", "mzJ`z")
 map("n", "<C-a>", "0ggvG$")
 map("n", "<C-d>", "<C-d>zz")
@@ -15,7 +15,7 @@ map("n", "<C-u>", "<C-u>zz")
 map({ "n", "v" }, "<C-e>", "$")
 map({ "n", "v" }, "<C-b>", "0")
 map("i", "<C-e>", "<Esc>$i")
-map("i", "<C-b>", "<Esc>")
+map("i", "<C-b>", "<Esc>0i")
 map("i", "<C-h>", "<Left>")
 map("i", "<C-j>", "<Down>")
 map("i", "<C-k>", "<Up>")
@@ -24,8 +24,8 @@ map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
-map("n", "<Tab>", ":bnext<CR>", opts)
-map("n", "<S-Tab>", ":bprevious<CR>", opts)
+map("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
+map("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
@@ -33,21 +33,37 @@ map("n", "N", "Nzzzv")
 map("n", "hs", ":split<CR>")
 map("n", "vs", ":vsplit<CR>")
 ----Terminal
-map("n", "<leader>v", ":vs +terminal | startinsert<CR>")
-map("n", "<leader>h", ":split +terminal | startinsert<CR>")
+map("n", "<leader>v", function()
+	require("nvchad.term").new({ pos = "vsp" })
+end, { desc = "Terminal in Vertical Split" })
+map("n", "<leader>h", function()
+	require("nvchad.term").new({ pos = "sp" })
+end, { desc = "Terminal in Horizontal Split" })
+
+--- toggleable terminal
+map({ "n", "t" }, "<A-v>", function()
+	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
+end, { desc = "terminal toggleable vertical term" })
+
+map({ "n", "t" }, "<A-h>", function()
+	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
+end, { desc = "terminal toggleable horizontal term" })
+
+map({ "n", "t" }, "<A-i>", function()
+	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+end, { desc = "terminal toggle floating term" })
 
 --greatest remap ever
-map("x", "<leader>p", '"_dP')
-map("n", "<leader>sr", ":%s/<C-r><C-w>//gc<left><Left><Left>")
+map("x", "<leader>p", '"_dP', { desc = "Paste withouth yanking" })
+map("n", "<leader>sr", ":%s/<C-r><C-w>//gc<left><Left><Left>", { desc = "Search and replace word under cursor" })
 
 --next greatest remap (only for linux/not wsl)
-map("n", "<leader>y", '"+y')
-map("v", "<leader>y", '"+y')
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system Clipboard" })
 map("n", "<leader>Y", '"+Y')
 
-map("n", "<leader>q", vim.cmd.q)
-map("n", "<leader>x", ":bdelete<CR>")
-map("n", "<C-s>", ":w<CR>", opts)
+map("n", "<leader>Q", vim.cmd.qall, { desc = "Quit Neovim" })
+map("n", "<leader>q", ":bdelete<CR>", { desc = "Close Buffer" })
+map("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 map("n", "<leader>R", function()
 	local swapBoolean = function()
 		local c = vim.api.nvim_get_current_line()
@@ -55,50 +71,121 @@ map("n", "<leader>R", function()
 		vim.api.nvim_set_current_line(subs)
 	end
 	swapBoolean()
-end)
+end, { desc = "Swap True:False", noremap = true, silent = true })
 
 --Hop.nvim
-map("", "gf", vim.cmd.HopChar1)
-map("", "gt", vim.cmd.HopChar1)
+map("n", "gf", vim.cmd.HopChar1, { desc = "Find letter in view", noremap = true, silent = true })
+map("n", "gt", vim.cmd.HopChar2, { desc = "Find two letters in view", noremap = true, silent = true })
 
---NvimTree
-map("n", "<leader>n", ":NvimTreeToggle<CR>", opts)
+---NVUI---
+map("n", "<leader>th", function()
+	require("nvchad.themes").open()
+end, { desc = "Change theme", noremap = true, silent = true })
+---NvimTree
+map("n", "<leader>n", ":NvimTreeToggle<CR>", { desc = "File Tree", noremap = true, silent = true })
 
 -- --Harpoon
 map("n", "<leader>P", function()
 	require("harpoon.ui").toggle_quick_menu()
-end)
+end, { desc = "List Harpoons", noremap = true, silent = true })
 map("n", "za", function()
 	require("harpoon.mark").add_file()
-end)
+end, { desc = "Add Harpoon", noremap = true, silent = true })
 map("n", "zn", function()
 	require("harpoon.ui").nav_next()
-end)
+end, { desc = "Next Harpoon", noremap = true, silent = true })
 map("n", "zp", function()
 	require("harpoon.ui").nav_prev()
-end)
+end, { desc = "Previos Harpoon", noremap = true, silent = true })
 --
 --UndoTree
-map("n", "<leader>U", vim.cmd.UndotreeToggle)
+map("n", "<leader>U", vim.cmd.UndotreeToggle, { desc = "toggle undotree", noremap = true, silent = true })
 
 ---TELESCOPE
 
-map("n", "<leader>ff", '<cmd>lua require("telescope.builtin").find_files()<cr>', opts)
-map("n", "<leader>g", '<cmd>lua require("telescope.builtin").git_files()<cr>', opts)
-map("n", "<leader>fg", '<cmd>lua require("telescope.builtin").live_grep()<cr>', opts)
-map("n", "<leader>fb", '<cmd>lua require("telescope.builtin").buffers()<cr>', opts)
-map("n", "<leader>fh", '<cmd>lua require("telescope.builtin").help_tags()<cr>', opts)
-map("n", "<leader>k", '<cmd>lua require("telescope.builtin").oldfiles()<cr>', opts)
-map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
+map(
+	"n",
+	"<leader>ff",
+	'<cmd>lua require("telescope.builtin").find_files()<cr>',
+	{ desc = "Find Files", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>gt",
+	'<cmd>lua require("telescope.builtin").git_files()<cr>',
+	{ desc = "Git Files", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fg",
+	'<cmd>lua require("telescope.builtin").live_grep()<cr>',
+	{ desc = "Find word | Grep", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fb",
+	'<cmd>lua require("telescope.builtin").buffers()<cr>',
+	{ desc = "Find Buffer", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fh",
+	'<cmd>lua require("telescope.builtin").help_tags()<cr>',
+	{ desc = "Find Help", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>k",
+	'<cmd>lua require("telescope.builtin").oldfiles()<cr>',
+	{ desc = "OldFiles", noremap = true, silent = true }
+)
+map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", { desc = "Lsp Code Action", noremap = true, silent = true })
 
-map("n", "<leader><leader>a", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', opts)
-map("n", "<leader>gd", '<cmd>lua require("telescope.builtin").lsp_definitions{}<cr>', opts)
-map("n", "<leader>gv", '<cmd>lua require("telescope.builtin").lsp_definitions{jump_type="vsplit"}<cr>', opts)
-map("n", "<leader>gi", '<cmd>lua require("telescope.builtin").lsp_implementations{}<cr>', opts)
-map("n", "<leader>fr", '<cmd>lua require("telescope.builtin").lsp_references{}<cr>', opts)
--- map("n", "<leader>f", '<cmd>lua require("telescope.builtin").lsp_document_symbols{}<cr>', opts)
-map("n", "<leader>fm", '<cmd>lua require("telescope.builtin").lsp_document_symbols{symbols="method"}<cr>', opts)
-map("n", "<leader>dg", ":Telescope diagnostics bufnr=0<cr>", opts)
-map("n", "<leader>fG", ':execute "Telescope live_grep default_text=" . expand("<cword>")<cr>', opts)
-map("n", "<leader>fS", ':execute "Telescope grep_string default_text=" . expand("<cword>")<cr>', opts)
-map("n", "<leader>fF", ':execute "Telescope find_files default_text=" . "" . expand("<cword>")<cr>', opts)
+map(
+	"n",
+	"<leader>gd",
+	'<cmd>lua require("telescope.builtin").lsp_definitions{}<cr>',
+	{ desc = "Find Definition", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>gv",
+	'<cmd>lua require("telescope.builtin").lsp_definitions{jump_type="vsplit"}<cr>',
+	{ noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>gi",
+	'<cmd>lua require("telescope.builtin").lsp_implementations{}<cr>',
+	{ desc = "Find Implementations", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fr",
+	'<cmd>lua require("telescope.builtin").lsp_references{}<cr>',
+	{ desc = "Lsp References", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fm",
+	'<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>',
+	{ desc = "Lsp Symbols", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>dg",
+	":Telescope diagnostics bufnr=0<cr>",
+	{ desc = "Current Buffer diagnostics", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fG",
+	':execute "Telescope live_grep default_text=" . expand("<cword>")<cr>',
+	{ desc = "Find word under cursor | Grep", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>fF",
+	':execute "Telescope find_files default_text=" . "" . expand("<cword>")<cr>',
+	{ desc = "Find files with the word under cursor", noremap = true, silent = true }
+)

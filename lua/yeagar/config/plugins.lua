@@ -2,9 +2,24 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
 		config = function()
 			require("yeagar.plugins.telescope")
+		end,
+	},
+	{ "nvchad/volt", lazy = true },
+	{
+		"nvchad/ui",
+		config = function()
+			require("nvchad")
+		end,
+	},
+
+	{
+		"nvchad/base46",
+		lazy = true,
+		build = function()
+			require("base46").load_all_highlights()
 		end,
 	},
 	{
@@ -14,14 +29,6 @@ return {
 			require("yeagar.plugins.indent")
 		end,
 	},
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	main = "ibl",
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		require("ibl").setup()
-	-- 	end,
-	-- },
 	{ "mbbill/undotree" },
 	{
 		"ThePrimeagen/harpoon",
@@ -98,18 +105,49 @@ return {
 			})
 		end,
 	},
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+	},
 	----Formatter----
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 	},
 	----UI----
-	{
-		"norcalli/nvim-colorizer.lua",
-		config = function()
-			require("colorizer").setup()
-		end,
-	},
 	{ "nvim-tree/nvim-web-devicons" },
 	{ "christoomey/vim-tmux-navigator", event = "BufEnter" },
 	{
@@ -125,16 +163,6 @@ return {
 		opts = {
 			keys = "etovxqpdygfblzhckisuran",
 		},
-	},
-	{
-		"akinsho/bufferline.nvim",
-		after = "catppuccin",
-		event = { "BufReadPost", "BufNewFile" },
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("yeagar.plugins.bufferline")
-		end,
 	},
 	{
 		"windwp/nvim-autopairs",
@@ -190,36 +218,37 @@ return {
 			require("yeagar.plugins.alpha")
 		end,
 	},
-	-- lua with lazy.nvim
+	--- lua with lazy.nvim
 	{
 		"max397574/better-escape.nvim",
 		config = function()
 			require("better_escape").setup()
 		end,
 	},
-	{
-		"nvim-lualine/lualine.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		init = function()
-			vim.opt.laststatus = 0
-		end,
-		config = function()
-			require("yeagar.plugins.lualine")
-		end,
-	},
-	--Colorschemes--`
-	-- { "sainnhe/gruvbox-material" },
-	-- { "ellisonleao/gruvbox.nvim" },
-	-- { "rose-pine/neovim", name = "rose-pine" },
-	-- { "Everblush/nvim", name = "everblush" },
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		config = function()
-			require("yeagar.config.colors")
-		end,
-	},
-	-- { "rebelot/kanagawa.nvim" },
-	-- { "tiagovla/tokyodark.nvim" },
+	-- {
+	-- 	"nvim-lualine/lualine.nvim",
+	-- 	event = { "BufReadPost", "BufNewFile" },
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	init = function()
+	-- 		vim.opt.laststatus = 0
+	-- 	end,
+	-- 	config = function()
+	-- 		require("yeagar.plugins.lualine")
+	-- 	end,
+	-- },
+	---Colorschemes---
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = "catppuccin",
+	-- 	dependencies = {
+	-- 		{ "rose-pine/neovim", name = "rose-pine" },
+	-- 		{ "Everblush/nvim", name = "everblush" },
+	-- 		"sainnhe/gruvbox-material",
+	-- 		"rebelot/kanagawa.nvim",
+	-- 		"tiagovla/tokyodark.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		require("yeagar.config.colors")
+	-- 	end,
+	-- },
 }

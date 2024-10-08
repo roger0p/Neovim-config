@@ -47,7 +47,7 @@ bufferline.setup({
 			},
 			{
 				filetype = "NvimTree",
-				text = "Explorer",
+				text = "File Explorer",
 				highlight = "PanelHeading",
 				padding = 0,
 			},
