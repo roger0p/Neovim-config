@@ -23,7 +23,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup("yeagar.config.plugins", {})
+require("lazy").setup("config.plugins", {})
 
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
 	dofile(vim.g.base46_cache .. v)

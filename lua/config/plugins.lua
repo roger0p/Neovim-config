@@ -4,7 +4,7 @@ return {
 		branch = "0.1.x",
 		dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
 		config = function()
-			require("yeagar.plugins.telescope")
+			require("plugins.telescope")
 		end,
 	},
 	{ "nvchad/volt", lazy = true },
@@ -26,7 +26,7 @@ return {
 		"shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require("yeagar.plugins.indent")
+			require("plugins.indent")
 		end,
 	},
 	{ "mbbill/undotree" },
@@ -39,7 +39,7 @@ return {
 	{
 		"nvim-tree/nvim-tree.lua",
 		config = function()
-			require("yeagar.plugins.nvimtree")
+			require("plugins.nvimtree")
 		end,
 	},
 	{
@@ -56,7 +56,7 @@ return {
 		},
 		build = ":TSUpdate",
 		config = function()
-			require("yeagar.plugins.treesitter")
+			require("plugins.treesitter")
 		end,
 	},
 	---LSP--
@@ -68,7 +68,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 		},
 		config = function()
-			require("yeagar.plugins.lsp")
+			require("plugins.lsp")
 		end,
 	},
 	----Completion----
@@ -76,7 +76,7 @@ return {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		config = function()
-			require("yeagar.plugins.cmp")
+			require("plugins.cmp")
 		end,
 		dependencies = {
 			"onsails/lspkind.nvim",
@@ -165,6 +165,12 @@ return {
 		},
 	},
 	{
+		"tiagovla/scope.nvim",
+		config = function()
+			require("scope").setup()
+		end,
+	},
+	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {
@@ -215,7 +221,7 @@ return {
 		-- dependencies = { 'echasnovski/mini.icons' },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("yeagar.plugins.alpha")
+			require("plugins.alpha")
 		end,
 	},
 	--- lua with lazy.nvim
@@ -233,7 +239,7 @@ return {
 	-- 		vim.opt.laststatus = 0
 	-- 	end,
 	-- 	config = function()
-	-- 		require("yeagar.plugins.lualine")
+	-- 		require("plugins.lualine")
 	-- 	end,
 	-- },
 	---Colorschemes---
@@ -248,7 +254,7 @@ return {
 	-- 		"tiagovla/tokyodark.nvim",
 	-- 	},
 	-- 	config = function()
-	-- 		require("yeagar.config.colors")
+	-- 		require("config.colors")
 	-- 	end,
 	-- },
 }

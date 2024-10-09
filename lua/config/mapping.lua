@@ -81,6 +81,12 @@ map("n", "gt", vim.cmd.HopChar2, { desc = "Find two letters in view", noremap = 
 map("n", "<leader>th", function()
 	require("nvchad.themes").open()
 end, { desc = "Change theme", noremap = true, silent = true })
+
+-- tabufline
+map("n", "<leader>b", "<cmd>tabnew<CR>", { desc = "New Tab" })
+map("n", "<leader><Tab>", "<cmd>tabnext<CR>", { desc = "Next Tab" })
+map("n", "<leader><S-Tab>", "<cmd>tabprevious<CR>", { desc = "Previos Tab" })
+
 ---NvimTree
 map("n", "<leader>n", ":NvimTreeToggle<CR>", { desc = "File Tree", noremap = true, silent = true })
 
