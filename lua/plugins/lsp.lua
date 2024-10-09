@@ -21,12 +21,12 @@ require("mason-lspconfig").setup({
 
 local opts = { noremap = true, silent = true }
 local on_attach = function(_, bufnr)
-	vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", {})
-	vim.keymap.set("n", "gd", "<CMD>Lspsaga goto_definition<CR>", {})
-	vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {})
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
-	vim.keymap.set("n", "<leader>ca", "<CMD>Lspsaga code_action<CR>", {})
-	vim.keymap.set("n", "<leader>rn", "<CMD>Lspsaga rename<CR>", {})
+	vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", opts)
+	vim.keymap.set("n", "gd", "<CMD>Lspsaga goto_definition<CR>", opts)
+	vim.keymap.set("n", "gr", "<CMD>Lspsaga finder<CR>", opts)
+	vim.keymap.set("n", "gi", "<CMD>Lspsaga outline<CR>", opts)
+	vim.keymap.set("n", "<leader>ca", "<CMD>Lspsaga code_action<CR>", opts)
+	vim.keymap.set("n", "<leader>rn", "<CMD>Lspsaga rename<CR>", opts)
 	vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua require('conform').format()<cr>", opts)
 end
 
@@ -34,16 +34,16 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require("lspconfig")
 
--- local servers = { "html", "cssls", "ts_ls", "clangd", "tailwindcss", "emmet_ls", "pyright", "bashls" }
---
--- for _, lsp in ipairs(servers) do
--- 	lspconfig[lsp].setup({
--- 		on_attach = on_attach,
--- 		capabilities = capabilities,
--- 		capabilities,
--- 	})
--- end
---
+local servers = { "html", "cssls", "ts_ls", "clangd", "tailwindcss", "emmet_ls", "pyright", "bashls" }
+
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+		capabilities,
+	})
+end
+
 lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -61,7 +61,11 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
-lspconfig.bashls.setup({})
+local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 -------------------
 ---- Formatter ----
 -------------------
