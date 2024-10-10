@@ -2,7 +2,13 @@ local M = {}
 
 M.base46 = {
 	theme = "gruvchad",
-	transparency = true,
+	transparency = false,
+	integrations = { "hop" },
+	hl_override = {
+		Comment = {
+			italic = true,
+		},
+	},
 }
 
 M.ui = {
@@ -15,7 +21,7 @@ M.ui = {
 			icon = "󱓻",
 		},
 	},
-	telescope = { style = "bordered" }, -- borderless / bordered
+	telescope = { style = "borderless" }, -- borderless / bordered
 	statusline = {
 		enabled = true,
 		theme = "minimal", -- default/vscode/vscode_colored/minimal
@@ -26,7 +32,7 @@ M.ui = {
 	tabufline = {
 		enabled = true,
 		lazyload = true,
-		order = { "buffers", "tabs" },
+		order = { "buffers", "tabs", "btns" },
 		modules = nil,
 	},
 }
