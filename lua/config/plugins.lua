@@ -2,7 +2,7 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
-		dependencies = { "nvim-lua/plenary.nvim", "andrew-george/telescope-themes" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("plugins.telescope")
 		end,
@@ -14,7 +14,6 @@ return {
 			require("nvchad")
 		end,
 	},
-
 	{
 		"nvchad/base46",
 		lazy = true,
