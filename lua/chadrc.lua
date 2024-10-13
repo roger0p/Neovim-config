@@ -2,11 +2,19 @@ local M = {}
 
 M.base46 = {
 	theme = "gruvchad",
-	transparency = false,
+	transparency = true,
 	integrations = { "hop" },
 	hl_override = {
-		Comment = {
+		["@comment"] = {
 			italic = true,
+		},
+		["@keyword"] = {
+			italic = true,
+		},
+	},
+	changed_themes = {
+		gruvchad = {
+			base_16 = { base00 = "#121212" },
 		},
 	},
 }
