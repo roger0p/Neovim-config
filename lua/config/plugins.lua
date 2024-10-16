@@ -10,6 +10,7 @@ return {
 	{ "nvchad/volt", lazy = true },
 	{
 		"nvchad/ui",
+		lazy = true,
 		config = function()
 			require("nvchad")
 		end,
