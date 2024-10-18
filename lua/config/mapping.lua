@@ -12,18 +12,16 @@ map("n", "J", "mzJ`z")
 map("n", "<C-a>", "0ggvG$")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
-map({ "n", "v" }, "<C-e>", "$")
-map({ "n", "v" }, "<C-b>", "0")
-map("i", "<C-e>", "<Esc>$i")
-map("i", "<C-b>", "<Esc>0i")
-map("i", "<C-h>", "<Left>")
-map("i", "<C-j>", "<Down>")
-map("i", "<C-k>", "<Up>")
-map("i", "<C-l>", "<Right>")
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
+map({ "n", "i" }, "<C-b>", "<ESC>^", { desc = "move beginning of line" })
+map({ "n", "i" }, "<C-e>", "<End>", { desc = "move end of line" })
+map("i", "<C-h>", "<Left>", { desc = "move left" })
+map("i", "<C-l>", "<Right>", { desc = "move right" })
+map("i", "<C-j>", "<Down>", { desc = "move down" })
+map("i", "<C-k>", "<Up>", { desc = "move up" })
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 map("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
 map("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 map("n", "n", "nzzzv")
@@ -51,6 +49,10 @@ end, { desc = "terminal toggleable horizontal term" })
 
 map({ "n", "t" }, "<A-i>", function()
 	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+end, { desc = "terminal toggle floating term" })
+
+map({ "n", "t" }, "<leader>gt", function()
+	require("nvchad.term").toggle({ pos = "float", cmd = "lazygit", id = "lazygit" })
 end, { desc = "terminal toggle floating term" })
 
 --greatest remap ever
@@ -117,12 +119,6 @@ map(
 )
 map(
 	"n",
-	"<leader>gt",
-	'<cmd>lua require("telescope.builtin").git_files()<cr>',
-	{ desc = "Git Files", noremap = true, silent = true }
-)
-map(
-	"n",
 	"<leader>fg",
 	'<cmd>lua require("telescope.builtin").live_grep()<cr>',
 	{ desc = "Find word | Grep", noremap = true, silent = true }
@@ -155,19 +151,13 @@ map(
 )
 map(
 	"n",
-	"<leader>gv",
-	'<cmd>lua require("telescope.builtin").lsp_definitions{jump_type="vsplit"}<cr>',
-	{ noremap = true, silent = true }
-)
-map(
-	"n",
 	"<leader>gi",
 	'<cmd>lua require("telescope.builtin").lsp_implementations{}<cr>',
 	{ desc = "Find Implementations", noremap = true, silent = true }
 )
 map(
 	"n",
-	"<leader>fr",
+	"<leader>gr",
 	'<cmd>lua require("telescope.builtin").lsp_references{}<cr>',
 	{ desc = "Lsp References", noremap = true, silent = true }
 )

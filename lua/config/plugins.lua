@@ -10,7 +10,6 @@ return {
 	{ "nvchad/volt", lazy = true },
 	{
 		"nvchad/ui",
-		lazy = true,
 		config = function()
 			require("nvchad")
 		end,
@@ -45,7 +44,12 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("gitsigns").setup()
+			require("gitsigns").setup({
+				signs = {
+					delete = { text = "󰍵" },
+					changedelete = { text = "󱕖" },
+				},
+			})
 		end,
 	},
 	{
@@ -94,6 +98,16 @@ return {
 				build = "make install_jsregexp",
 			},
 		},
+	},
+	{
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({
+				keymaps = {
+					accept_suggestion = "<C-Space>",
+				},
+			})
+		end,
 	},
 	{
 		"nvimdev/lspsaga.nvim",

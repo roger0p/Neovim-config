@@ -6,7 +6,7 @@ local CursorLine = vim.api.nvim_create_augroup("CursorLine", { clear = true })
 ---------------------------------------------------------------------
 -- TO HIGHLIGHT CURSORLINE WHICH IDK WHY NVCHAD DOESN'T BY DEFAULT --
 ---------------------------------------------------------------------
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
 	command = "hi CursorLine guibg=#1e1e1e",
 	group = CursorLine,
 })

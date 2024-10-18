@@ -3,12 +3,12 @@ local M = {}
 M.base46 = {
 	theme = "gruvchad",
 	transparency = true,
-	integrations = { "hop" },
 	hl_override = {
 		["@comment"] = {
 			italic = true,
 		},
 		["@keyword"] = {
+			bold = true,
 			italic = true,
 		},
 	},
@@ -22,7 +22,7 @@ M.base46 = {
 M.ui = {
 	cmp = {
 		icons_left = true, -- only for non-atom styles!
-		lspkind_text = false,
+		lspkind_text = true,
 		style = "default", -- default/flat_light/flat_dark/atom/atom_colored
 		format_colors = {
 			tailwind = true, -- will work for css lsp too
@@ -49,10 +49,10 @@ M.term = {
 	winopts = { number = false },
 	sizes = { sp = 0.3, vsp = 0.2, ["bo sp"] = 0.3, ["bo vsp"] = 0.2 },
 	float = {
-		row = 0.3,
-		col = 0.25,
-		width = 0.5,
-		height = 0.4,
+		row = 0.13,
+		col = 0.15,
+		width = 0.7,
+		height = 0.7,
 		border = "single",
 	},
 }

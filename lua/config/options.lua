@@ -1,46 +1,45 @@
-vim.opt.termguicolors = true
-vim.opt.guicursor = ""
-vim.opt.cursorline = true
-
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 20
-vim.opt.wrap = false
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
-vim.opt.background = "dark"
--- vim.opt.list = true
-vim.opt.fillchars = { eob = " " }
-
-vim.opt.number = true
-vim.opt.numberwidth = 2
-vim.opt.relativenumber = true
-vim.opt.ruler = false
-
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.mouse = "a"
--- vim.opt.clipboard = "unnamedplus"
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.whichwrap:append("<>[]hl")
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-
-vim.opt.updatetime = 250
-vim.o.timeoutlen = 400
+local options = {
+	termguicolors = true,
+	guicursor = "",
+	cursorline = true,
+	cursorlineopt = "both",
+	completeopt = "menu,menuone,noselect",
+	scrolloff = 8,
+	sidescrolloff = 20,
+	wrap = false,
+	cmdheight = 0,
+	laststatus = 3,
+	background = "dark",
+	-- list = true,
+	fillchars = { eob = " " },
+	number = true,
+	numberwidth = 2,
+	relativenumber = true,
+	ruler = false,
+	expandtab = true,
+	shiftwidth = 2,
+	smartindent = true,
+	tabstop = 2,
+	softtabstop = 2,
+	ignorecase = true,
+	smartcase = true,
+	mouse = "a",
+	-- clipboard = "unnamedplus",
+	splitbelow = true,
+	splitright = true,
+	swapfile = false,
+	backup = false,
+	undodir = os.getenv("HOME") .. "/.vim/undodir",
+	undofile = true,
+	hlsearch = false,
+	incsearch = true,
+	signcolumn = "yes",
+	updatetime = 100,
+	timeoutlen = 200,
+}
+for k, v in pairs(options) do
+	vim.opt[k] = v
+end
 vim.opt.shortmess:append("sI")
+vim.opt.isfname:append("@-@")
+vim.opt.whichwrap:append("<>[]hl")

@@ -8,11 +8,13 @@ if not present then
 end
 
 local luasnip = require("luasnip")
+local suggestion = require("supermaven-nvim.completion_preview")
 local lspkind = require("lspkind")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
 local options = {
+	completion = { completeopt = "menu,menuone" },
 	window = {
 		-- completion = cmp.config.window.bordered({
 		-- 	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -29,8 +31,9 @@ local options = {
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
-		{ name = "path" },
 		{ name = "nvim_lua" },
+		{ name = "path" },
+		{ name = "supermaven" },
 	},
 	snippet = {
 		expand = function(args)
@@ -41,7 +44,6 @@ local options = {
 	mapping = cmp.mapping.preset.insert({ -- confirm completion
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		-- scroll up and down the documentation window
@@ -50,6 +52,8 @@ local options = {
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
+			elseif suggestion.has_suggestion() then
+				suggestion.on_accept_suggestion()
 			else
 				fallback()
 			end
@@ -69,6 +73,7 @@ local options = {
 		format = lspkind.cmp_format({
 			mode = "symbol", -- show only symbol annotations
 			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+			symbol_map = { Supermaven = "󱐋" },
 			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 			before = function(_, vim_item)
 				return vim_item
