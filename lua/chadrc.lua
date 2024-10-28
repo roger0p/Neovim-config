@@ -56,6 +56,14 @@ M.term = {
 		border = "single",
 	},
 }
+
+M.colorify = {
+	enabled = true,
+	mode = "virtual", -- fg, bg, virtual
+	virt_text = "󱓻 ",
+	highlight = { hex = true, lspvars = true },
+}
+
 M.lsp = { signature = true }
 
 M.cheatsheet = {

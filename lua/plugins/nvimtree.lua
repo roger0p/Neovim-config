@@ -18,8 +18,7 @@ end
 require("nvim-tree").setup({
 	filters = { dotfiles = false },
 	disable_netrw = false,
-	hijack_cursor = false,
-	hijack_netrw = true,
+	hijack_cursor = true,
 	sort = {
 		sorter = "name",
 		folders_first = true,

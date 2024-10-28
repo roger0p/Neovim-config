@@ -37,6 +37,7 @@ return {
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("plugins.nvimtree")
 		end,
@@ -162,7 +163,6 @@ return {
 		event = { "BufWritePre" },
 	},
 	----UI----
-	{ "nvim-tree/nvim-web-devicons" },
 	{ "christoomey/vim-tmux-navigator", event = "BufEnter" },
 	{
 		"kylechui/nvim-surround",
@@ -223,6 +223,10 @@ return {
 		opts = {
 			window = { backdrop = 0.7 },
 			plugins = {
+				options = {
+					enabled = true,
+					laststatus = 0, -- turn off the statusline in zen mode
+				},
 				gitsigns = true,
 				tmux = true,
 				kitty = { enabled = false, font = "+2" },
