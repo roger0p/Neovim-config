@@ -1,12 +1,4 @@
 return {
-	{
-		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("plugins.telescope")
-		end,
-	},
 	{ "nvchad/volt", lazy = true },
 	{
 		"nvchad/ui",
@@ -19,6 +11,14 @@ return {
 		lazy = true,
 		build = function()
 			require("base46").load_all_highlights()
+		end,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("plugins.telescope")
 		end,
 	},
 	{
@@ -124,38 +124,6 @@ return {
 		"folke/trouble.nvim",
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 		cmd = "Trouble",
-		keys = {
-			{
-				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle<cr>",
-				desc = "Diagnostics (Trouble)",
-			},
-			{
-				"<leader>xX",
-				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-				desc = "Buffer Diagnostics (Trouble)",
-			},
-			{
-				"<leader>cs",
-				"<cmd>Trouble symbols toggle focus=false<cr>",
-				desc = "Symbols (Trouble)",
-			},
-			{
-				"<leader>cl",
-				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-				desc = "LSP Definitions / references / ... (Trouble)",
-			},
-			{
-				"<leader>xL",
-				"<cmd>Trouble loclist toggle<cr>",
-				desc = "Location List (Trouble)",
-			},
-			{
-				"<leader>xQ",
-				"<cmd>Trouble qflist toggle<cr>",
-				desc = "Quickfix List (Trouble)",
-			},
-		},
 	},
 	----Formatter----
 	{
@@ -196,8 +164,155 @@ return {
 
 			-- setup cmp for autopairs
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			---@diagnostic disable-next-line: different-requires
 			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			bigfile = { enabled = true },
+			dashboard = {
+				enabled = true,
+				preset = {
+					header = [[ 
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⣿⣿⣿⡆⠀⠀⠀⢸⣿⣿⠿⠿⢿⣿⣿⣿⣿⡿⠿⠿⣿⣿⡇⠀⠀⠀⣾⣿⣿⡿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀
+⠀⠀⠀⠀⢿⣿⠿⠿⠿⠿⣿⣿⣿⡏⠀⠀⠀⢹⣿⡇⠀⠀⠀⢸⣿⢱⣶⣴⣶⢹⣿⣿⡏⣶⣦⣶⡎⣿⡇⠀⠀⠀⢿⣿⠁⠀⠀⠈⣿⣿⣿⡿⠟⣋⣽⣿⣿⠇⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣿⣧⣄⣀⣴⣿⣿⣿⣷⣄⣀⣠⣾⣟⠀⠀⠀⠀⠈⣿⣦⣙⣛⣡⣾⡿⢿⣷⣌⣛⣋⣴⣿⠁⠀⠀⠀⠘⣿⣦⣄⣀⣴⣿⣿⣿⣿⣶⣶⣤⣿⡟⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣏⣼⣌⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣰⣆⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣏⣼⣌⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠉⠉⢿⣿⣿⣿⣿⣿⣿⡏⠉⠁⠀⠀⠀⠀⠀⠀⠀⠉⠉⢹⣿⣿⣿⣿⣿⣿⡏⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⣿⣿⣿⣿⣿⣿⣿⡏⠉⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁⠁⠁⠉⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠁⠉⠉⠈⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁⠁⠁⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀
+          ]],
+				},
+				sections = {
+					{ section = "header" },
+					{ icon = " ", section = "keys", gap = 1, padding = 1 },
+					{
+						pane = 2,
+						{
+							icon = " ",
+							title = "Recent Files",
+							section = "recent_files",
+							limit = 18,
+							indent = 2,
+							padding = 1,
+						},
+						{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+					},
+					{ section = "startup" },
+				},
+			},
+			notifier = {
+				enabled = true,
+				timeout = 3000,
+			},
+			quickfile = { enabled = true },
+			statuscolumn = { enabled = true },
+			words = { enabled = true },
+			styles = {
+				notification = {
+					wo = { wrap = true }, -- Wrap notifications
+				},
+			},
+		},
+		keys = {
+			{
+				"<leader>un",
+				function()
+					Snacks.notifier.hide()
+				end,
+				desc = "Dismiss All Notifications",
+			},
+			{
+				"<leader>gg",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+			{
+				"<leader>gb",
+				function()
+					Snacks.git.blame_line()
+				end,
+				desc = "Git Blame Line",
+			},
+			{
+				"<leader>gB",
+				function()
+					Snacks.gitbrowse()
+				end,
+				desc = "Git Browse",
+			},
+			{
+				"<leader>gf",
+				function()
+					Snacks.lazygit.log_file()
+				end,
+				desc = "Lazygit Current File History",
+			},
+			{
+				"<leader>gl",
+				function()
+					Snacks.lazygit.log()
+				end,
+				desc = "Lazygit Log (cwd)",
+			},
+			{
+				"<leader>cR",
+				function()
+					Snacks.rename.rename_file()
+				end,
+				desc = "Rename File",
+			},
+			{
+				"<c-_>",
+				function()
+					Snacks.terminal()
+				end,
+				desc = "which_key_ignore",
+			},
+			{
+				"]]",
+				function()
+					Snacks.words.jump(vim.v.count1)
+				end,
+				desc = "Next Reference",
+				mode = { "n", "t" },
+			},
+			{
+				"[[",
+				function()
+					Snacks.words.jump(-vim.v.count1)
+				end,
+				desc = "Prev Reference",
+				mode = { "n", "t" },
+			},
+			{
+				"<leader>N",
+				desc = "Neovim News",
+				function()
+					Snacks.win({
+						file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+						width = 0.6,
+						height = 0.6,
+						wo = {
+							spell = false,
+							wrap = false,
+							signcolumn = "yes",
+							statuscolumn = " ",
+							conceallevel = 3,
+						},
+					})
+				end,
+			},
+		},
 	},
 	{
 		"folke/which-key.nvim",
@@ -234,14 +349,13 @@ return {
 		},
 		keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
 	},
-	{
-		"goolord/alpha-nvim",
-		-- dependencies = { 'echasnovski/mini.icons' },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("plugins.alpha")
-		end,
-	},
+	-- {
+	-- 	"goolord/alpha-nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	config = function()
+	-- 		require("plugins.alpha")
+	-- 	end,
+	-- },
 	--- lua with lazy.nvim
 	{
 		"max397574/better-escape.nvim",

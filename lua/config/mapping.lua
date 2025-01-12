@@ -51,10 +51,6 @@ map({ "n", "t" }, "<A-i>", function()
 	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "terminal toggle floating term" })
 
-map({ "n", "t" }, "<leader>gt", function()
-	require("nvchad.term").toggle({ pos = "float", cmd = "lazygit", id = "lazygit" })
-end, { desc = "terminal toggle floating term" })
-
 --greatest remap ever
 map("x", "<leader>p", '"_dP', { desc = "Paste withouth yanking" })
 map("n", "<leader>sr", ":%s/<C-r><C-w>//gc<left><Left><Left>", { desc = "Search and replace word under cursor" })
@@ -63,6 +59,7 @@ map("n", "<leader>sr", ":%s/<C-r><C-w>//gc<left><Left><Left>", { desc = "Search 
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system Clipboard" })
 map("n", "<leader>Y", '"+Y')
 
+map({ "n", "x" }, "<F3>", "<cmd>lua require('conform').format()<cr>", { noremap = true, silent = true })
 map("n", "<leader>Q", vim.cmd.qall, { desc = "Quit Neovim" })
 map("n", "<leader>q", ":bdelete<CR>", { desc = "Close Buffer" })
 map("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
@@ -137,41 +134,27 @@ map(
 )
 map(
 	"n",
-	"<leader>k",
+	"<leader>fo",
 	'<cmd>lua require("telescope.builtin").oldfiles()<cr>',
 	{ desc = "OldFiles", noremap = true, silent = true }
-)
-map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", { desc = "Lsp Code Action", noremap = true, silent = true })
-
-map(
-	"n",
-	"<leader>gd",
-	'<cmd>lua require("telescope.builtin").lsp_definitions{}<cr>',
-	{ desc = "Find Definition", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>gi",
-	'<cmd>lua require("telescope.builtin").lsp_implementations{}<cr>',
-	{ desc = "Find Implementations", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>gr",
-	'<cmd>lua require("telescope.builtin").lsp_references{}<cr>',
-	{ desc = "Lsp References", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fm",
-	'<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>',
-	{ desc = "Lsp Symbols", noremap = true, silent = true }
 )
 map(
 	"n",
 	"<leader>dg",
-	":Telescope diagnostics bufnr=0<cr>",
+	"<CMD>Trouble diagnostics toggle<CR>",
+	{ desc = "All Buffer diagnostics", noremap = true, silent = true }
+)
+map(
+	"n",
+	"<leader>dG",
+	"<CMD>Trouble diagnostics toggle filter.buf=0<CR>",
 	{ desc = "Current Buffer diagnostics", noremap = true, silent = true }
+)
+map(
+	"n",
+	"gl",
+	"<CMD>Trouble lsp toggle focus=false win.position=right<CR>",
+	{ desc = "Current LSP Status", noremap = true, silent = true }
 )
 map(
 	"n",

@@ -2,7 +2,7 @@ local M = {}
 
 M.base46 = {
 	theme = "gruvchad",
-	transparency = true,
+	transparency = false,
 	hl_override = {
 		["@comment"] = {
 			italic = true,
@@ -39,7 +39,7 @@ M.ui = {
 	},
 	tabufline = {
 		enabled = true,
-		lazyload = true,
+		lazyload = false,
 		order = { "buffers", "tabs", "btns" },
 		modules = nil,
 	},

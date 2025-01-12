@@ -24,10 +24,9 @@ local on_attach = function(_, bufnr)
 	vim.keymap.set("n", "K", "<CMD>Lspsaga hover_doc<CR>", opts)
 	vim.keymap.set("n", "gd", "<CMD>Lspsaga goto_definition<CR>", opts)
 	vim.keymap.set("n", "gr", "<CMD>Lspsaga finder<CR>", opts)
-	vim.keymap.set("n", "gi", "<CMD>Lspsaga outline<CR>", opts)
-	vim.keymap.set("n", "<leader>ca", "<CMD>Lspsaga code_action<CR>", opts)
+	vim.keymap.set("n", "go", "<CMD>Lspsaga outline<CR>", opts)
+	vim.keymap.set("n", "ca", "<CMD>Lspsaga code_action<CR>", opts)
 	vim.keymap.set("n", "<leader>rn", "<CMD>Lspsaga rename<CR>", opts)
-	vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua require('conform').format()<cr>", opts)
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -40,7 +39,6 @@ for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		capabilities,
 	})
 end
 
