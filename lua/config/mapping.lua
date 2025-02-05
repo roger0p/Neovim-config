@@ -27,28 +27,45 @@ map("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
-----Splits
+---- Menu
+---- Keyboard users
+map("n", "<C-t>", function()
+	require("menu").open("default")
+end, {})
+
+-- mouse users + nvimtree users!
+map({ "n", "v" }, "<RightMouse>", function()
+	require("menu.utils").delete_old_menus()
+
+	vim.cmd.exec('"normal! \\<RightMouse>"')
+
+	-- clicked buf
+	local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+	local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+
+	require("menu").open(options, { mouse = true })
+end, {}) --Splits
 map("n", "hs", ":split<CR>")
 map("n", "vs", ":vsplit<CR>")
 ----Terminal
 map("n", "<leader>v", function()
-	require("nvchad.term").new({ pos = "vsp" })
+	require("nvchad.term").new({ pos = "vsp", cmd = "fastfetch" })
 end, { desc = "Terminal in Vertical Split" })
 map("n", "<leader>h", function()
-	require("nvchad.term").new({ pos = "sp" })
+	require("nvchad.term").new({ pos = "sp", cmd = "fastfetch" })
 end, { desc = "Terminal in Horizontal Split" })
 
 --- toggleable terminal
 map({ "n", "t" }, "<A-v>", function()
-	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
+	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggleable vertical term" })
 
 map({ "n", "t" }, "<A-h>", function()
-	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
+	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggleable horizontal term" })
 
 map({ "n", "t" }, "<A-i>", function()
-	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+	require("nvchad.term").toggle({ pos = "float", id = "floatTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggle floating term" })
 
 --greatest remap ever
@@ -87,7 +104,7 @@ map("n", "<leader><Tab>", "<cmd>tabnext<CR>", { desc = "Next Tab" })
 map("n", "<leader><S-Tab>", "<cmd>tabprevious<CR>", { desc = "Previos Tab" })
 
 ---NvimTree
-map("n", "<leader>n", ":NvimTreeToggle<CR>", { desc = "File Tree", noremap = true, silent = true })
+map("n", "<leader>n", ":lua MiniFiles.open()<CR>", { desc = "File Tree", noremap = true, silent = true })
 
 -- --Harpoon
 map("n", "<leader>P", function()
