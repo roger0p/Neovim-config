@@ -30,42 +30,43 @@ map("n", "N", "Nzzzv")
 ---- Menu
 ---- Keyboard users
 map("n", "<C-t>", function()
-	require("menu").open("default")
+  require("menu").open("default")
 end, {})
 
 -- mouse users + nvimtree users!
 map({ "n", "v" }, "<RightMouse>", function()
-	require("menu.utils").delete_old_menus()
+  require("menu.utils").delete_old_menus()
 
-	vim.cmd.exec('"normal! \\<RightMouse>"')
+  vim.cmd.exec('"normal! \\<RightMouse>"')
 
-	-- clicked buf
-	local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
-	local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+  -- clicked buf
+  local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+  local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
 
-	require("menu").open(options, { mouse = true })
-end, {}) --Splits
+  require("menu").open(options, { mouse = true })
+end, {})
+--Splits
 map("n", "hs", ":split<CR>")
 map("n", "vs", ":vsplit<CR>")
 ----Terminal
 map("n", "<leader>v", function()
-	require("nvchad.term").new({ pos = "vsp", cmd = "fastfetch" })
+  require("nvchad.term").new({ pos = "vsp", cmd = "fastfetch" })
 end, { desc = "Terminal in Vertical Split" })
 map("n", "<leader>h", function()
-	require("nvchad.term").new({ pos = "sp", cmd = "fastfetch" })
+  require("nvchad.term").new({ pos = "sp", cmd = "fastfetch" })
 end, { desc = "Terminal in Horizontal Split" })
 
 --- toggleable terminal
 map({ "n", "t" }, "<A-v>", function()
-	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", cmd = "fastfetch" })
+  require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggleable vertical term" })
 
 map({ "n", "t" }, "<A-h>", function()
-	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", cmd = "fastfetch" })
+  require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggleable horizontal term" })
 
 map({ "n", "t" }, "<A-i>", function()
-	require("nvchad.term").toggle({ pos = "float", id = "floatTerm", cmd = "fastfetch" })
+  require("nvchad.term").toggle({ pos = "float", id = "floatTerm", cmd = "fastfetch" })
 end, { desc = "terminal toggle floating term" })
 
 --greatest remap ever
@@ -81,12 +82,12 @@ map("n", "<leader>Q", vim.cmd.qall, { desc = "Quit Neovim" })
 map("n", "<leader>q", ":bdelete<CR>", { desc = "Close Buffer" })
 map("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 map("n", "<leader>R", function()
-	local swapBoolean = function()
-		local c = vim.api.nvim_get_current_line()
-		local subs = c:match("true") and c:gsub("true", "false") or c:gsub("false", "true")
-		vim.api.nvim_set_current_line(subs)
-	end
-	swapBoolean()
+  local swapBoolean = function()
+    local c = vim.api.nvim_get_current_line()
+    local subs = c:match("true") and c:gsub("true", "false") or c:gsub("false", "true")
+    vim.api.nvim_set_current_line(subs)
+  end
+  swapBoolean()
 end, { desc = "Swap True:False", noremap = true, silent = true })
 
 --Hop.nvim
@@ -95,7 +96,7 @@ map("n", "gt", vim.cmd.HopChar2, { desc = "Find two letters in view", noremap = 
 
 ---NVUI---
 map("n", "<leader>th", function()
-	require("nvchad.themes").open()
+  require("nvchad.themes").open()
 end, { desc = "Change theme", noremap = true, silent = true })
 
 -- tabufline
@@ -108,80 +109,17 @@ map("n", "<leader>n", ":lua MiniFiles.open()<CR>", { desc = "File Tree", noremap
 
 -- --Harpoon
 map("n", "<leader>P", function()
-	require("harpoon.ui").toggle_quick_menu()
+  require("harpoon.ui").toggle_quick_menu()
 end, { desc = "List Harpoons", noremap = true, silent = true })
 map("n", "za", function()
-	require("harpoon.mark").add_file()
+  require("harpoon.mark").add_file()
 end, { desc = "Add Harpoon", noremap = true, silent = true })
 map("n", "zn", function()
-	require("harpoon.ui").nav_next()
+  require("harpoon.ui").nav_next()
 end, { desc = "Next Harpoon", noremap = true, silent = true })
 map("n", "zp", function()
-	require("harpoon.ui").nav_prev()
+  require("harpoon.ui").nav_prev()
 end, { desc = "Previos Harpoon", noremap = true, silent = true })
 --
 --UndoTree
 map("n", "<leader>U", vim.cmd.UndotreeToggle, { desc = "toggle undotree", noremap = true, silent = true })
-
----TELESCOPE
-
-map(
-	"n",
-	"<leader>ff",
-	'<cmd>lua require("telescope.builtin").find_files()<cr>',
-	{ desc = "Find Files", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fg",
-	'<cmd>lua require("telescope.builtin").live_grep()<cr>',
-	{ desc = "Find word | Grep", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fb",
-	'<cmd>lua require("telescope.builtin").buffers()<cr>',
-	{ desc = "Find Buffer", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fh",
-	'<cmd>lua require("telescope.builtin").help_tags()<cr>',
-	{ desc = "Find Help", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fo",
-	'<cmd>lua require("telescope.builtin").oldfiles()<cr>',
-	{ desc = "OldFiles", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>dg",
-	"<CMD>Trouble diagnostics toggle<CR>",
-	{ desc = "All Buffer diagnostics", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>dG",
-	"<CMD>Trouble diagnostics toggle filter.buf=0<CR>",
-	{ desc = "Current Buffer diagnostics", noremap = true, silent = true }
-)
-map(
-	"n",
-	"gl",
-	"<CMD>Trouble lsp toggle focus=false win.position=right<CR>",
-	{ desc = "Current LSP Status", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fG",
-	':execute "Telescope live_grep default_text=" . expand("<cword>")<cr>',
-	{ desc = "Find word under cursor | Grep", noremap = true, silent = true }
-)
-map(
-	"n",
-	"<leader>fF",
-	':execute "Telescope find_files default_text=" . "" . expand("<cword>")<cr>',
-	{ desc = "Find files with the word under cursor", noremap = true, silent = true }
-)

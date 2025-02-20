@@ -1,7 +1,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "nightlamp",
+  theme = "gruvchad",
   transparency = false,
   hl_override = {
     ["@comment"] = {
@@ -14,7 +14,7 @@ M.base46 = {
   },
   changed_themes = {
     gruvchad = {
-      base_16 = { base00 = "#121212" },
+      -- base_16 = { base00 = "#191919" }
     },
   },
 }
@@ -23,9 +23,9 @@ M.ui = {
   cmp = {
     icons_left = false, -- only for non-atom styles!
     lspkind_text = true,
-    style = "default", -- default/flat_light/flat_dark/atom/atom_colored
+    style = "default",  -- default/flat_light/flat_dark/atom/atom_colored
     format_colors = {
-      tailwind = true, -- will work for css lsp too
+      tailwind = true,  -- will work for css lsp too
       icon = "󱓻",
     },
   },
@@ -68,7 +68,7 @@ M.colorify = {
 M.lsp = { signature = true }
 
 M.cheatsheet = {
-  theme = "grid",                                                    -- simple/grid
+  theme = "grid",                                                     -- simple/grid
   excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
 }
 return M

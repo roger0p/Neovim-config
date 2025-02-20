@@ -13,15 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +48 ~/.config/nvim/lua/config/plugins.lua
-badd +34 lua/plugins/lsp.lua
+badd +23 lua/plugins/lsp.lua
 badd +2 lua/config/mapping.lua
-badd +5 lua/chadrc.lua
+badd +17 lua/chadrc.lua
 argglobal
 %argdel
-edit ~/.config/nvim/lua/config/plugins.lua
+edit lua/chadrc.lua
 argglobal
-balt lua/chadrc.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -32,12 +30,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 48 - ((16 * winheight(0) + 16) / 33)
+let s:l = 17 - ((16 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 48
-normal! 0
+keepjumps 17
+normal! 041|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
